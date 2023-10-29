@@ -1,0 +1,107 @@
+{% extends "spirit/_base.html" %}
+{% load spirit_tags i18n %}
+
+{% block title %}{% trans "Latest active topics" %}{% endblock %}
+
+{% block content %}
+<div class="col-9">
+    <div class="dropdown" style="padding-bottom:20px">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            类型
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item type" href="#" id="all-categories">所有类型节目数量占比饼状图</a></li>
+            <li><a class="dropdown-item type" href="#" id="all-platforms">所有平台播出节目数量占比</a></li>
+            <li><a class="dropdown-item type" href="#" id="hunan-tv">湖南卫视播出各类节目占比</a></li>
+        </ul>
+    </div>
+
+    <!-- 展示图表 -->
+    <div id="main" style="width: 1000px;height:400px;"></div>
+
+</div>
+<div class="col-3">
+    <div class="hot" >
+        <div class="title"> 热词排行榜 </div>
+        <ul class="list-group">
+            {% for star in hot_words %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{{ star.jump_url }}" style="a:hover   {color:red;}">
+                    <span style="padding:auto">{{ star.name }}</span>
+                </a>
+                <span class="badge bg-warning rounded-pill">{{ star.ranking }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="hot">
+        <div class="title"> 明星排行榜 </div>
+        <ul class="list-group">
+            {% for star in stars %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <img style="height:50px;width:50px" src="/media/{{ star.image }}" class="rounded" alt="...">
+                <a href="{{ star.jump_url }}" style="a:hover   {color:red;}">
+                    <span style="padding:auto">{{ star.name }}</span>
+                </a>
+                <span class="badge bg-warning rounded-pill">{{ star.ranking }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<script src="/static/variety/js/jquery.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.7.0/echarts-en.common.js"></script>
+<script>
+    // 自动加载时，执行点击事件
+    $(document).ready(function(){
+        $('#all-categories').click();
+    });
+    //点击事件
+    $('.type').click(function(){
+        words = $(this).text()
+        id = $(this).attr('id')
+        $('#dropdownMenuLink').html(words)
+        $(".shows").hide()
+        $("."+id).show()
+        var myChart = echarts.init(document.getElementById('main'));
+        // 显示标题，图例和空的坐标轴
+        myChart.setOption({
+            title: {
+                text: words,
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            series : [
+                {
+                    type: 'pie',
+                    radius: '55%',
+                    data:[]
+                }
+            ]
+        })
+
+        url = '/chart/'+id
+        console.log(id)
+        // 异步加载数据
+        $.get(url).done(function (data) {
+            console.log(data)
+            // 填入数据
+            myChart.setOption({
+                series: [{
+                    // 根据名字对应到相应的系列
+                    name: '销量',
+                    data: data.data
+                }]
+            });
+        });
+    })
+</script>
+
+{% endblock %}
+

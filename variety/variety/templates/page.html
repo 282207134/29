@@ -1,0 +1,25 @@
+<div monitor-desc='分页' id='js-ew-page' data-block='js-ew-page' monitor-cid='翻页' monitor-shortpv-b class='ew-page'>
+    <a class="btn page-link" href="javascript:;" data-page="1">首页</a>
+    <!-- 上一页 -->
+    {% if page_obj.has_previous %}
+        <a href="javascript:;"  data-page={{ page_obj.previous_page_number }} class="btn page-link" monitor-shortpv-c-sub="<上一页">&lt;上一页</a>
+    {% endif %}
+    <!-- 遍历每一页 -->
+    {% for item in page_range %}
+        {% if page_obj.number == item %}
+            <a class="btn page-link" href="javascript:;" data-page={{ item }}>{{ item }}</a>
+        {% else %}
+            <a class="btn page-link" href="javascript:;" data-page={{ item }}>{{ item }}</a>
+        {% endif %}
+    {% endfor %}
+    <!-- 下一页 -->
+    {% if page_obj.has_next %}
+        <a href="javascript:;"  class="btn page-link" data-page={{ page_obj.next_page_number }} monitor-shortpv-c-sub="下一页>">下一页&gt;</a>
+    {% endif %}
+</div>
+<script>
+$(".page-link").click(function(){
+    var page = $(this).data('page')
+    matchUrl('page',page);  // 生成URL
+})
+</script>

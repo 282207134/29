@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset='utf-8' />
+    <title>360综艺分类列表-更新更全更受欢迎的影视网站-在线观看</title>
+    <meta name="referrer" content="always"/>
+    <link rel='stylesheet' href="{% static 'variety/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'variety/css/main.css' %}" />
+    <script src="{% static 'variety/js/jquery.js' %}"></script>
+    <script src="{% static 'variety/js/main.js' %}"></script>
+</head>
+<body>
+<script>
+    (function () {var flag = true;var current = undefined;var e = [];document.getwide = function () {return current;};document.onwidechange = function (cb, isRun) {e.push(cb);};function addClass(obj, cls) {if (!hasClass(obj, cls)) {removeClass(obj);var obj_class = obj.className;blank = (obj_class != "") ? " " : "";var added = obj_class + blank + cls;obj.className = added;}}function removeClass(obj) {var classnames = obj.className,l = classnames.length;var reg = new RegExp("g-body(1280|1580|1800|maxs)");var result = reg.exec(classnames);if(result){classnames = " " + classnames + " ";classnames = classnames.replace(/(\s+)/gi, " ").replace(" "+result[0]+" "," ").replace(/(^\s+)|(\s+$)/g, "");obj.className = classnames;}}function hasClass(obj, cls) {var obj_class = obj.className,obj_class_lst = obj_class.split(/\s+/);var x = 0;for (x in obj_class_lst) {if (obj_class_lst[x] == cls) {return true;}}return false;}function emit(type) {if (current != type) {current = type;for (var i = 0; i < e.length; i++) {e[i](type);}}}function setBodyWidth() {var bodywidth = document.body.clientWidth;if(bodywidth < 1280){addClass(document.body, "g-body1280");emit("body1280");}else if(bodywidth >= 1280 && bodywidth < 1580){addClass(document.body, "g-body1580");emit("body1580");}else if(bodywidth >= 1580 && bodywidth < 1800){addClass(document.body, "g-body1800");emit("body1800");}else if(bodywidth >= 1800){addClass(document.body, "g-bodymaxs");emit("bodymaxs");}}window.onresize = function () {if (flag) {flag = false;setTimeout(function () {flag = true;setBodyWidth();}, 120);}};setBodyWidth();})();</script><script>var systemserverdata={"domain":{"kan":"\/\/www.360kan.com","v":"\/\/www.360kan.com","videoweb":"","so":"\/\/so.360kan.com","my":"\/\/i.360kan.com","app":"\/\/app.360kan.com","pl":"\/\/pl.360kan.com","play":"\/\/play.xiankan.com","pay":"\/\/pay.xiankan.com","chat":"\/\/chat.xiankan.com","dig":"\/\/dig.360kan.com","wemedia":"\/\/wemedia.360kan.com","httpsmy":"https:\/\/i.360kan.com","xkmy":"http:\/\/my.xiankan.com","my360":"http:\/\/i.360kan.com"}}
+</script>
+<div class="eb-head eb-head-style-black" style="height:70px"
+     data-block="tj-head" monitor-desc="head" monitor-shortpv-b monitor-cid='头部内容'>
+    <div class="eb-headinner">
+        <div class="eb-head-top g-clear" monitor-shortpv>
+            <a href="{% url 'index' %}"  class="eb-head-logo" >
+                <img src="/static/variety/images/logo.png">
+            </a>
+            <div class="eb-head-s">
+                <form class="js-eb-search eb-search eb-search-xklong eb-search-style-black" target="_top" method="GET" action="{% url 'search' %}" id="search-form">
+                    <div class='js-eb-suggest eb-suggest eb-suggest-xklong eb-suggest-style-black g-clear' id='js-eb-suggest'>
+                        <input class='eb-suggest-query js-query' autocomplete='off' value="" id='keyword' name="keyword" />
+                    </div>
+                    <a href="{% url 'index' %}" class="eb-search-list">
+                        <img src="https://p4.ssl.qhimg.com/t01570af2d1a912174d.png" alt="" />
+                    </a>
+                    <div class="eb-search-btn-wrap">
+                        <input type="submit" value=""  class="eb-search-btn" id="js-eb-search-btn">
+                        <label for="js-eb-search-btn">全网搜</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='s-common-top g-wrap js-common-top s-zongyi-top' data-channel="zongyi">
+    <div style="width: 385px;margin: 53px auto 40px auto;">
+        <img src="/static/variety/images/404.png">
+        <h1 style="font-size: 24px;color: #333;margin-bottom: 10px;">啊哦，外星人来袭，页面找不到了...</h1>
+        <a href="{% url 'index' %}" style="color: #1db69a;font-size: 16px;margin-left: 138px;text-decoration: underline;">点击返回首页</a>
+    </div>
+</div>
+<!-- 底部信息 -->
+{% include 'footer.html' %}
+
+</body>
+</html>

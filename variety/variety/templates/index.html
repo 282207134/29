@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset='utf-8'/>
+    <title>360综艺频道-更新更全更受欢迎的影视网站-在线观看</title>
+    <link rel='stylesheet' href="{% static 'variety/css/bootstrap.css' %}" />
+    <link rel='stylesheet' href="{% static 'variety/css/style.css' %}" />
+    <link rel='stylesheet' href="{% static 'variety/css/index.css' %}" />
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'variety/js/bootstrap.bundle.js' %}"></script>
+</head>
+<body>
+<script>
+    (function () {var flag = true;var current = undefined;var e = [];document.getwide = function () {return current;};document.onwidechange = function (cb, isRun) {e.push(cb);};function addClass(obj, cls) {if (!hasClass(obj, cls)) {removeClass(obj);var obj_class = obj.className;blank = (obj_class != "") ? " " : "";var added = obj_class + blank + cls;obj.className = added;}}function removeClass(obj) {var classnames = obj.className,l = classnames.length;var reg = new RegExp("g-body(1280|1580|1800|maxs)");var result = reg.exec(classnames);if(result){classnames = " " + classnames + " ";classnames = classnames.replace(/(\s+)/gi, " ").replace(" "+result[0]+" "," ").replace(/(^\s+)|(\s+$)/g, "");obj.className = classnames;}}function hasClass(obj, cls) {var obj_class = obj.className,obj_class_lst = obj_class.split(/\s+/);var x = 0;for (x in obj_class_lst) {if (obj_class_lst[x] == cls) {return true;}}return false;}function emit(type) {if (current != type) {current = type;for (var i = 0; i < e.length; i++) {e[i](type);}}}function setBodyWidth() {var bodywidth = document.body.clientWidth;if(bodywidth < 1280){addClass(document.body, "g-body1280");emit("body1280");}else if(bodywidth >= 1280 && bodywidth < 1580){addClass(document.body, "g-body1580");emit("body1580");}else if(bodywidth >= 1580 && bodywidth < 1800){addClass(document.body, "g-body1800");emit("body1800");}else if(bodywidth >= 1800){addClass(document.body, "g-bodymaxs");emit("bodymaxs");}}window.onresize = function () {if (flag) {flag = false;setTimeout(function () {flag = true;setBodyWidth();}, 120);}};setBodyWidth();})();
+</script>
+{% include 'spirit/_header.html' %}
+<div data-block="tj-topslider" style="margin-top:100px">
+    <div class="bd-example" style="height:360px">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for item in slide %}
+                    {% if  forloop.counter == 1 %}
+                        <div class="carousel-item active">
+                            <img src="/media/{{item.image}}" class="d-block w-100" alt="...">
+                        </div>
+                    {% else %}
+                        <div class="carousel-item ">
+                            <img src="/media/{{item.image}}" class="d-block w-100" alt="...">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% include 'top_select.html'%}
+
+<div data-block="tj-正在热播" monitor-shortpv-b monitor-cid="正在热播">
+    <div class="g-wrap">
+        <div class="m-rebo p-mod" id="js-rebo">
+            <div class="p-mod-title">
+                <span class="p-mod-label">正在热播</span>
+            </div>
+            <div class="content">
+                <ul class="rebo-list w-newfigure-list g-clear js-list">
+                    {% for item in hot %}
+                        <li title='{{item.variety.variety_name}}' class='w-newfigure w-newfigure-190x149'
+                            monitor-shortpv-c='cont_' monitor-source=''>
+                            <a href="{% url 'detail' id=item.variety.id %}" data-url='{{item.video_url}}' data-specialurl='' class='js-link'>
+                            <div class='w-newfigure-imglink g-playicon js-playicon'>
+                                <img src='/media/{{item.image}}' alt='{{item.variety.variety_name}}'/>
+                                <span class='w-newfigure-hint'>{{item.release_date}}期</span></div>
+                            <div class='w-newfigure-detail'>
+                                <p class='title g-clear'>
+                                    <span class='s1' style="padding-left:8px">{{item.variety.variety_name}}</span></p>
+                                <p class='w-newfigure-desc' style="padding-left:8px">{{item.title}}</p>
+                            </div>
+                        </a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="g-wrap" data-block="tj-热搜TOP都在这！" monitor-shortpv-b monitor-cid="热搜TOP都在这！">
+    <div class="m-mod1 p-mod">
+        <div class="p-mod-title">
+            <span class="p-mod-label">重磅推荐！</span>
+        </div>
+        <div class="content">
+            <ul class="rebo-list w-newfigure-list g-clear js-list">
+                {% for item in recommend %}
+                <li title='{{item.variety.variety_name}}' class='w-newfigure w-newfigure-190x149'
+                    monitor-shortpv-c='cont_' monitor-source=''>
+                    <a href="{% url 'detail' id=item.variety.id %}" data-url='{{item.video_url}}' data-specialurl='' class='js-link'>
+                        <div class='w-newfigure-imglink g-playicon js-playicon'>
+                            <img src='/media/{{item.image}}' alt='{{item.variety.variety_name}}'/>
+                            <span class='w-newfigure-hint'>{{item.release_date}}期</span></div>
+                        <div class='w-newfigure-detail'>
+                            <p class='title g-clear'>
+                                <span class='s1' style="padding-left:8px">{{item.variety.variety_name}}</span></p>
+                            <p class='w-newfigure-desc' style="padding-left:8px">{{item.title}}</p>
+                        </div>
+                    </a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="g-wrap" data-block="tj-底部热门标签" monitor-shortpv-b monitor-cid="底部热门标签">
+    <div class="dmfilter">
+        <div class="filter-list g-clear">
+            <div class="filter-item type">
+                <dl class="g-clear">
+                    <dt>热门综艺</dt>
+                    <dd><a rel="https://www.360kan.com/va/asQlcnNyA2Q5DD.html" monitor-shortpv-c-sub="tab_热门综艺_幸福三重奏2">春暖花开</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ac5mbnNy8pY7ET.html"
+                           monitor-shortpv-c-sub="tab_热门综艺_女儿们的恋爱2">美人迟暮</a></dd>
+                    <dd><a rel="https://www.360kan.com/va/YsYqanNyA2U7DD.html" monitor-shortpv-c-sub="tab_热门综艺_奇葩说6">阳和启蛰</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZcMlbHNyA2UCED.html"
+                           monitor-shortpv-c-sub="tab_热门综艺_妻子的浪漫旅行3">曲眉丰颊</a></dd>
+                    <dd><a rel="https://www.360kan.com/va/asMnaXNyA2QBFD.html" monitor-shortpv-c-sub="tab_热门综艺_明星大侦探5">触物伤情</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZsEob6Jv7JQ3Dz.html" monitor-shortpv-c-sub="tab_热门综艺_快乐大本营">一阳复始</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/asYncHNyA2U2DD.html" monitor-shortpv-c-sub="tab_热门综艺_亲爱的客栈3">春兰秋菊</a>
+                    </dd>
+                    <dd class="last"><a rel="https://www.360kan.com/va/ZcMncXNyA2M8DD.html"
+                                        monitor-shortpv-c-sub="tab_热门综艺_演员请就位">春色满园</a></dd>
+                </dl>
+            </div>
+            <div class="filter-item area">
+                <dl class="g-clear">
+                    <dt>真人秀</dt>
+                    <dd><a rel="https://www.360kan.com/va/Y8EnbHNy8JkADD.html" monitor-shortpv-c-sub="tab_真人秀_我们的师父">景色宜人</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/YsAnbHNy8ZM8Dz.html" monitor-shortpv-c-sub="tab_真人秀_我是唱作人">金屋贮娇</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZsckbXNy8JMCDD.html" monitor-shortpv-c-sub="tab_真人秀_哈哈农夫">物伤其类</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZcEqbnNy8Jk4FD.html" monitor-shortpv-c-sub="tab_真人秀_密室大逃脱">人琴俱逝</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/aMIkaXNy8Zc5Ej.html" monitor-shortpv-c-sub="tab_真人秀_我最爱的女人们">余霞成绮</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/Y8ImcnNy8JYADj.html" monitor-shortpv-c-sub="tab_真人秀_青春的花路">月眉星眼</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZsYoanNy82EAFD.html" monitor-shortpv-c-sub="tab_真人秀_女儿们的恋爱">禾黍之伤</a>
+                    </dd>
+                    <dd class="last"><a rel="https://www.360kan.com/va/Y8YrbnNy7pk7ED.html"
+                                        monitor-shortpv-c-sub="tab_真人秀_大冰小将">楚囚相对</a></dd>
+                </dl>
+            </div>
+            <div class="filter-item year">
+                <dl class="g-clear">
+                    <dt>感情-相亲</dt>
+                    <dd><a rel="https://www.360kan.com/va/acImaXNy8ZA8ED.html"
+                           monitor-shortpv-c-sub="tab_感情-相亲_喜欢你我也是">百草权舆</a></dd>
+                    <dd><a rel="https://www.360kan.com/va/YsQpcHNy82k6DD.html"
+                           monitor-shortpv-c-sub="tab_感情-相亲_中国新相亲2">姱容修态</a></dd>
+                    <dd><a rel="https://www.360kan.com/va/acUpaadv7JMAED.html" monitor-shortpv-c-sub="tab_感情-相亲_爱情保卫战">春风和气</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/YsAlb6Jv7Jc7DD.html" monitor-shortpv-c-sub="tab_感情-相亲_非常完美">泣数行下</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/Z8Uka6Rv7JQ3ET.html" monitor-shortpv-c-sub="tab_感情-相亲_非诚勿扰">螓首蛾眉</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/Y8glbalv7Jc6DD.html" monitor-shortpv-c-sub="tab_感情-相亲_金牌调解">桃李争妍</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZsEmb3Ny7ZICED.html"
+                           monitor-shortpv-c-sub="tab_感情-相亲_现在就告白3">捶胸顿脚</a></dd>
+                    <dd class="last"><a rel="https://www.360kan.com/va/Y8IkanNy7pk5Ej.html"
+                                        monitor-shortpv-c-sub="tab_感情-相亲_恋梦空间">离魂倩女</a></dd>
+                </dl>
+            </div>
+            <div class="filter-item star">
+                <dl class="g-clear">
+                    <dt>访谈-脱口秀</dt>
+                    <dd><a rel="https://www.360kan.com/va/Yc5qbXNy8ZECDT.html"
+                           monitor-shortpv-c-sub="tab_访谈-脱口秀_拜托了冰箱5">瘗玉埋香</a></dd>
+                    <dd><a rel="https://www.360kan.com/va/YcIqbKlv7JQ3Ez.html" monitor-shortpv-c-sub="tab_访谈-脱口秀_天天向上">怆地呼天</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/YsMpbHNx7JkAEj.html"
+                           monitor-shortpv-c-sub="tab_访谈-脱口秀_非常静距离">西眉南脸</a></dd>
+                    <dd><a rel="https://www.360kan.com/va/ZcckbKJv7Jc8DT.html" monitor-shortpv-c-sub="tab_访谈-脱口秀_鲁豫有约">杏腮桃脸</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/Zc5la3Ny7ZcAET.html" monitor-shortpv-c-sub="tab_访谈-脱口秀_少年说2">傍柳随花</a>
+                    </dd>
+                    <dd><a rel="https://www.360kan.com/va/ZcMqbXNy7JkADT.html" monitor-shortpv-c-sub="tab_访谈-脱口秀_奇葩说5">向阳花木</a>
+                    </dd>
+                    <dd class="last"><a rel="https://www.360kan.com/va/ZcEra3Ny7ZM2DT.html"
+                                        monitor-shortpv-c-sub="tab_访谈-脱口秀_火星情报局4">文如春华</a></dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+<!--<script src='https://s.ssl.qhimg.com/ssl/74c37d815a0f2e9a,1227bc46dba9ed04,f422446daac39150,2bae9bbd81d0152d,ec3d998f3f644ccb,4454729aaba44554,100b6848e5ee14f0,859be699fb031ca8,916cdb5f6aa9a3cc,f023ede548b96445,2a9dd47c3806f9da,2face359b0a8325c,a8e3fcbdee9b3634,d8cfa61cc5a0fd94,c6197a0a9e04347a,558fa10328a9741e,d1575b727dfa4262,193f6aaa039472ca,95d7945c0ac7838e,7f25b76331afd38a,c4fa1786f193b246,90876c330baab4c5,7553aebb28bca14a,fadff19a80612473,cbcd1a4f67339785,139f0236b8304a47,6d85cf932358451d,98c7758528dbfc9b,b0051d6002d95800,1b5861086a162b32,a550db4cb92fff8c,18a8bd044364dbad,1e6a7e438253554f,68c9dbdcc7b6140e,8d913e4493158a76,0947fdbe29a4450c,76ede7bb05f5727a,0432720426d9326b,cf5713f8e486dc51,705af9fab129804a,fd8e1748b074e362,4fea378f9d9033f9,dc1077ad183f1c22,e33866619fc969db.js'-->
+<!--        type='text/javascript'></script>-->
+
+<!--<script type='text/javascript' src='https://s5.ssl.qhimg.com/static/97c193e670740aa4.js'></script>-->
+<!--<script type='text/javascript'>define("other.jquery",function(){return window.$;});</script>-->
+
+
+<!--<script src='https://s.ssl.qhimg.com/ssl/741229d7a29fad59,339ea98dc0dd8217,1dda4d5ac23e0493,39dd58a4eb8db4f3,d5b4d1b10f341d3b,0bd7b326c2b1fefc,721b2caa3e5a13b7,181d44e51dab6f22,34d4b34ec8952f02,21706408bced0f9f,de9d5c15b14b25d4,de0acedb3b8f3bfb,ff3f2c75a69e0bb2,8eb98d95d814fbff,c69d5303aae3f58a,78b6394ff515a5f9,9dc6fae33942fdbd,8893aba142ab8db7,c857d5e0e01406ed,7c93a22f25184d8c,38dd05b54de1c036,bd978b32021c91ad,dcb59eba8570c97b,2fcd611bed57b04d,b0284afd893e72e0,14738733045e2dd5,8b6b03d9941d884e,ebc2b59d561a2b54,357a788731dc7f0e,57f6d469cfd1fb8e,d01da88cc3d2e1f8,08de22f7507544b6,d8e9785e99d52148,a59bca2360d3ca66,1b588a9f49ff7c74,8c929579c36924fe,a18d764149b101dd,2745e81e7906e675,48d65f4ab70d3afb,a155638a744c70d4,fcc07db519fde4d0,163b797f9e934b35,295df1bf5b1d97d6,d58f0b8169c53e86,0b5cdeaac7078841,f259776efe69958c.js'-->
+<!--        type='text/javascript'></script>-->
+
+</body>
+</html>
+
+

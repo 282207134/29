@@ -1,0 +1,32 @@
+<div data-block="tj-顶部筛选" monitor-shortpv-b monitor-cid="顶部筛选">
+    <div class="varietyfilter js-varietyfilter">
+        <div class="content">
+            <div class="filter-item filter-item-1 js-filter-item-1">
+                <dl class="g-clear">
+                    <dt>类型</dt>
+                    {% for item in type %}
+                        <dd>
+                            <a href="{% url 'lists'%}?tag={{item.0}}">{{ item.1 }}</a>
+                        </dd>
+                    {% endfor %}
+                    <dd >
+                        <a href="{% url 'lists'%}" >全部</a>
+                    </dd>
+                </dl>
+
+            </div>
+            <div class="filter-item filter-item-2 js-filter-item-2">
+                <dl class="g-clear">
+                    <dt>地区</dt>
+                    {% for item in region%}
+                        <dd><a href="{% url 'lists'%}?region={{item.0}}" >{{ item.1 }}</a></dd>
+                    {% endfor %}
+                    <dd class="lastItem">
+                        <a href="{% url 'lists' %}" >全部</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+</div>

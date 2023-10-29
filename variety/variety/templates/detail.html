@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset='utf-8' />
+    <title>360影视-更新更全更受欢迎的影视网站-在线观看</title>
+    <meta name="referrer" content="always"/>
+    <link rel='stylesheet' href="{% static 'variety/css/bootstrap.css' %}" />
+    <link rel='stylesheet' href="{% static 'variety/css/style.css' %}" />
+    <link rel='stylesheet' href="{% static 'variety/css/detail.css' %}" />
+    <script src="{% static 'variety/js/bootstrap.bundle.js' %}"></script>
+</head>
+<body>
+<script>(function(){var a=true;var h=undefined;var g=[];document.getwide=function(){return h};document.onwidechange=function(e,j){g.push(e)};function f(l,e){if(!d(l,e)){var j=l.className,m=(j!="")?" ":"";var k=j+m+e;l.className=k}}function i(l,e){if(d(l,e)){var j=" "+l.className+" ";j=j.replace(/(\s+)/gi," ");var k=j.replace(" "+e+" "," ");k=k.replace(/(^\s+)|(\s+$)/g,"");l.className=k}}function d(m,j){var k=m.className,l=k.split(/\s+/);var e=0;for(e in l){if(l[e]==j){return true}}return false}function c(j){if(h!=j){h=j;for(var e=0;e<g.length;e++){g[e](j)}}}function b(){if(document.body.clientWidth>1239){f(document.body,"g-wide");i(document.body,"g-small");c("wide")}else{i(document.body,"g-wide");f(document.body,"g-small");c("small")}}window.onresize=function(){if(a){a=false;setTimeout(function(){a=true;b()},120)}};b()})();</script><script>var systemserverdata={"domain":{"kan":"\/\/www.360kan.com","v":"\/\/www.360kan.com","videoweb":"","so":"\/\/so.360kan.com","my":"\/\/i.360kan.com","app":"\/\/app.360kan.com","pl":"\/\/pl.360kan.com","play":"\/\/play.xiankan.com","pay":"\/\/pay.xiankan.com","chat":"\/\/chat.xiankan.com","dig":"\/\/dig.360kan.com","wemedia":"\/\/wemedia.360kan.com","httpsmy":"https:\/\/i.360kan.com","xkmy":"http:\/\/my.xiankan.com","my360":"http:\/\/i.360kan.com"}}</script>
+<script>function getQueryString(key){var reg=new RegExp('(^|&)'+key+'=([^&]*)(&|$)','i');var r=window.location.search.substr(1).match(reg);if(r!=null){return unescape(r[2])}return null};if(window.external && external.AppCmd && external.GetSID && external.AppCmd && getQueryString('preview') == 'pcclient'){window.CallPCClientMethod = function(params){external.AppCmd(external.GetSID(window), 'pcclient', 'CallPCClientMethod', params, '', function(code, desc) {console.log('接口调用成功:', code, desc);})};window.RecordPlayHistory=function(){try{var args=Array.prototype.slice.call(arguments);if(args.length<8){throw Error('参数个数缺失，请传入正确的参数！')}var paramKeys=['title','entid','cat','playnum','subtitle','url','mId','site'];var paramObj={'type':'RecordPlayHistory'};for(var i=0;i<paramKeys.length;i++){paramObj[paramKeys[i]]=args[i]}external.AppCmd(external.GetSID(window),'pcclient','CallPCClientMethod',JSON.stringify(paramObj),'',function(code,desc){console.log('接口调用成功:',code,desc)})}catch(e){}};}</script><div class="eb-subhead-holder"></div>
+
+{% include 'spirit/_header.html' %}
+<div class="c-top" style="padding-top:80px">
+    <div class="c-top-main-wrap">
+        <div class="c-top-main">
+            <div class="top g-clear top-zongyi" monitor-shortpv-b monitor-cid="综艺正文内容">
+                <div class="top-left">
+                    <div class="s-cover" data-block="tj-cover"  id='js-s-cover'>
+
+                        <a href="{{ variety.video.all.last.video_url }}" class="g-playicon s-cover-img" data-daochu="to=qiyi" data-num="1"    monitor-shortpv-c-sub="_cover">
+                            <img src="/media/{{variety.image}}">
+                        </a>
+                    </div>
+                </div>
+                <div class="top-right">
+                    <div data-block="tj-info" class="top-info">
+                        <div class="top-info-title g-clear">
+                            <div class="title-left g-clear">
+                                <h1>{{variety.variety_name}}</h1>
+                                <p class="tag">更新至{{variety.video.all.last.release_date}}期</p>
+                                <a href="#" class="rank" data-block="tj-排行" monitor-shortpv-c-sub="tab_排名">全网综艺排名第{{variety.ranking}}名</a>
+                                <img src="https://p4.ssl.qhimg.com/t01460566f2d9f59a1b.png" class="rankicon"/>
+                            </div>
+                            <div class="s-title-right">
+                            </div>
+                        </div>
+
+                        <div id="js-desc-switch" class="top-info-detail g-clear">
+                            <div class="base-item-wrap g-clear">
+                                <p class="item item42"><span class="cat-title">类型 ：</span>
+                                    {% for item in type %}
+                                        {% if item.0 == variety.type %}
+                                            {{item.1}}
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                                <p class="item item41"><span>年代 ：</span>{{variety.year}}年</p>
+                                <p class="item item41"><span>地区 ：</span>
+                                    {% for item in region %}
+                                        {% if item.0 == variety.region %}
+                                            {{item.1}}
+                                        {% endif %}
+                                    {% endfor %}
+                                </p>
+                                <p style='clear:both'></p>
+                                <p class="item item41"><span>播出 ：</span>{{variety.platform}}</p>
+                                <p class="item item44 item-actor">
+                                    <span>明星 ：</span>
+                                    {{variety.star}}
+                                </p>
+                            </div>
+                            <div class="item-desc-wrap g-clear js-open-wrap"><span>简介 ：</span>
+                                <p class="item-desc">{{variety.review}}
+                                </p></div>
+                        </div>
+                    </div>
+                    <div data-block="tj-new" class="top-list g-clear">
+                        <div id="js-juji" class="juji g-clear p-mod" data-site="qiyi" monitor-cid="综艺正文内容">
+                            <div data-block="tj-juji" class="juji-main-wrap">
+                                <ul class="list w-newfigure-list g-clear">
+                                    {% for item in variety.video.all.values %}
+                                        <li title="{{item.title}}" class="w-newfigure w-newfigure-180x153 " monitor-shortpv-c="cont_" monitor-source="">
+                                            <a href="{{item.video_url}}" data-url="{{item.video_url}}" data-specialurl="" data-daochu="to=qiyi" class="js-link">
+                                                <div class="w-newfigure-imglink g-playicon js-playicon">
+                                                    <img src="/media/{{item.image}}" data-src="/media/{{item.image}}" alt="{{item.title}}">
+                                                    <span class="w-newfigure-hint">{{ item.release_date }}期</span>
+                                                </div>
+                                                <div class="w-newfigure-detail">
+                                                    <p class="title g-clear">
+                                                        <span class="s1">
+                                                            {% if item.desc %}
+                                                                {{ item.desc }}
+                                                            {% else %}
+                                                                {{ item.title }}
+                                                            {% endif %}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--  底部信息开始 -->
+{% include 'footer.html' %}
+<!--  底部信息结束 -->
+
+</body>
+</html>

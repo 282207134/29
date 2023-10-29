@@ -1,0 +1,115 @@
+{% load spirit_tags i18n %}
+<script>
+    (function () {var flag = true;var current = undefined;var e = [];document.getwide = function () {return current;};document.onwidechange = function (cb, isRun) {e.push(cb);};function addClass(obj, cls) {if (!hasClass(obj, cls)) {removeClass(obj);var obj_class = obj.className;blank = (obj_class != "") ? " " : "";var added = obj_class + blank + cls;obj.className = added;}}function removeClass(obj) {var classnames = obj.className,l = classnames.length;var reg = new RegExp("g-body(1280|1580|1800|maxs)");var result = reg.exec(classnames);if(result){classnames = " " + classnames + " ";classnames = classnames.replace(/(\s+)/gi, " ").replace(" "+result[0]+" "," ").replace(/(^\s+)|(\s+$)/g, "");obj.className = classnames;}}function hasClass(obj, cls) {var obj_class = obj.className,obj_class_lst = obj_class.split(/\s+/);var x = 0;for (x in obj_class_lst) {if (obj_class_lst[x] == cls) {return true;}}return false;}function emit(type) {if (current != type) {current = type;for (var i = 0; i < e.length; i++) {e[i](type);}}}function setBodyWidth() {var bodywidth = document.body.clientWidth;if(bodywidth < 1280){addClass(document.body, "g-body1280");emit("body1280");}else if(bodywidth >= 1280 && bodywidth < 1580){addClass(document.body, "g-body1580");emit("body1580");}else if(bodywidth >= 1580 && bodywidth < 1800){addClass(document.body, "g-body1800");emit("body1800");}else if(bodywidth >= 1800){addClass(document.body, "g-bodymaxs");emit("bodymaxs");}}window.onresize = function () {if (flag) {flag = false;setTimeout(function () {flag = true;setBodyWidth();}, 120);}};setBodyWidth();})();</script><script>var systemserverdata={"domain":{"kan":"\/\/www.360kan.com","v":"\/\/www.360kan.com","videoweb":"","so":"\/\/so.360kan.com","my":"\/\/i.360kan.com","app":"\/\/app.360kan.com","pl":"\/\/pl.360kan.com","play":"\/\/play.xiankan.com","pay":"\/\/pay.xiankan.com","chat":"\/\/chat.xiankan.com","dig":"\/\/dig.360kan.com","wemedia":"\/\/wemedia.360kan.com","httpsmy":"https:\/\/i.360kan.com","xkmy":"http:\/\/my.xiankan.com","my360":"http:\/\/i.360kan.com"}}
+</script>
+
+<div class="eb-head eb-head-style-black" data-block="tj-head" monitor-desc="head" monitor-shortpv-b="" monitor-cid="头部内容">
+  <div class="eb-headinner">
+    <div class="eb-head-top g-clear" monitor-shortpv="">
+      <a href="{% url 'index' %}" class="eb-head-logo" target="_self"><img src="/static/variety/images/logo.png"></a>
+      <div class="eb-head-s">
+        <form class="js-eb-search eb-search eb-search-xklong eb-search-style-black" target="_top" method="GET" action="{% url 'search' %}" id="search-form">
+          <div class='js-eb-suggest eb-suggest eb-suggest-xklong eb-suggest-style-black g-clear' id='js-eb-suggest'>
+            <input class='eb-suggest-query js-query' autocomplete='off' value="" id='keyword' name="keyword" />
+          </div>
+          <a href="{% url 'lists' %}" class="eb-search-list">
+            <img src="https://p4.ssl.qhimg.com/t01570af2d1a912174d.png" alt="" />
+          </a>
+          <div class="eb-search-btn-wrap">
+            <input type="submit" value=""  class="eb-search-btn" id="js-eb-search-btn" >
+            <label for="js-eb-search-btn" style="top:3px">全网搜</label>
+          </div>
+        </form>
+      </div>
+
+      <div class="eb-head-u">
+        <div class="eb-ucenter eb-ucenter-style-black g-clear" id="js-ebucenter" data-type="new">
+<!--          {% if user.is_authenticated %}-->
+<!--          <div id="js-ebapp" class="eb-ucenter-wrap eb-ucenter-app">-->
+<!--            <a href="{% url 'collect' %}" class="eb-ucenter-item" target="_blank">收藏</a>-->
+<!--          </div>-->
+<!--          {% endif %}-->
+          <div id="js-ebrecord-wrap" class="eb-ucenter-wrap eb-ucenter-record js-record" >
+            <a id="js-ebrecord" href="{% url 'history' %}" class="eb-ucenter-item">看过</a>
+          </div>
+          <div class="eb-ucenter-wrap eb-ucenter-my" style="margin-left:15px">
+            {% if user.is_authenticated %}
+              <a href="#" class="eb-ucenter-item eb-ucenter-nologin js-nologin dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ user.st.nickname }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{% url "spirit:user:detail" pk=user.pk slug=user.st.slug %}">个人中心</a></li>
+                <li><a class="dropdown-item" href="{% url "spirit:topic:index-active" %}">主题</a></li>
+                <li><a class="dropdown-item" href="{% url "spirit:topic:unread:index" %}">未读主题</a></li>
+                <li><a class="dropdown-item" href="{% url "spirit:topic:private:index" %}">私密主题</a></li>
+                <li><a class="dropdown-item" href="{% url "spirit:user:auth:logout" %}?next={% firstof request.get_full_path|urlencode '/' %}">退出登录</a></li>
+              </ul>
+            {% else %}
+                <a href="{% url 'spirit:user:auth:login' %}" class="eb-ucenter-item eb-ucenter-nologin js-nologin" >
+                  登录
+                </a>
+            {% endif %}
+          </div>
+          <script type="text/template" class="js-tpl">
+            <li class="eb-ucenter-layer-item">
+              <a target="_blank" class="item-icon" href="https://i.360.cn/?src=pcw_filmwallet">个人中心</a>
+            </li>
+            <li class="eb-ucenter-layer-item">
+              <a target="_blank" class="item-icon" href="#{myhost}/u/index/#{qid}">我的收藏</a>
+            </li>
+            <li class="eb-ucenter-layer-item">
+              <a target="_blank" class="item-icon" href="https://i.360.cn/profile/avatar?src=pcw_filmwallet">账号设置</a>
+            </li>
+            <li class="eb-ucenter-layer-item">
+              <a  class="item-icon js-logout" href="{% url "spirit:user:auth:logout" %}?next={% firstof request.get_full_path|urlencode '/' %}">退出</a>
+            </li>
+          </script>
+        </div>
+      </div>
+    </div>
+    <!-- 综艺分类开始  -->
+    <div class="eb-head-bottom g-clear">
+      <!-- <div class="wrap eb-head-width g-clear"> -->
+      <ul id="js-ebhead-more" class="eb-head-nav g-clear">
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+          <a href="{% url 'index' %}" class="nav-item" target="_self" >首页</a>
+        </li>
+
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+          <a href="/forum" class="nav-item" target="_self" >论坛</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+          <a href="/lists/?tag=0" class="nav-item" target="_self">脱口秀</a>
+        </li>
+
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=1" class="nav-item" target="_self">真人秀</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=2" class="nav-item" target="_self">搞笑</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=3" class="nav-item" target="_self">选秀</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=4" class="nav-item" target="_self">情感</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=5" class="nav-item" target="_self">访谈</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=6" class="nav-item" target="_self">音乐</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+            <a href="/lists/?tag=7" class="nav-item" target="_self">职场</a>
+        </li>
+        <li class="eb-head-nav-wrap js-ebsubhead-menu">
+          <a href="/statistics" class="nav-item" target="_self">统计</a>
+        </li>
+      </ul>
+      <!-- </div> -->
+    </div>
+    <!-- 综艺分类结束  -->
+  </div>
+
+</div>

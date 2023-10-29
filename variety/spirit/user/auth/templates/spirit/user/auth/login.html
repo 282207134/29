@@ -1,0 +1,35 @@
+{% extends "spirit/_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center" style="padding:20px 0">
+<div class="card" style="width:400px">
+  <div class="card-header text-center">
+    登 录
+  </div>
+  <div class="card-body">
+    <div class="login">
+      <form action="." method="post">
+        {% csrf_token %}
+        {% include "spirit/_form.html" %}
+        <input class="button btn-primary" type="submit" name="post" value="{% trans "Login" %}" />
+      </form>
+    </div>
+    <div class="login__links">
+      <a class="login__links__link" href="{% url "spirit:user:auth:register" %}"
+      >没有账号，去创建</a>
+<!--      <a class="login__links__link" href="{% url "spirit:user:auth:register" %}"-->
+<!--      >{% trans "Create an account" %}</a>-->
+<!--      <a class="login__links__link" href="{% url "spirit:user:auth:password-reset" %}"-->
+<!--      >{% trans "I don't know my password" %}</a>-->
+<!--      <a class="login__links__link" href="{% url "spirit:user:auth:resend-activation" %}"-->
+<!--      >{% trans "Resend activation email" %}</a>-->
+    </div>
+  </div>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset='utf-8' />
+    <title>360综艺分类列表-更新更全更受欢迎的影视网站-在线观看</title>
+    <meta name="referrer" content="always"/>
+    <link rel='stylesheet' href="{% static 'variety/css/bootstrap.css' %}" />
+    <link rel='stylesheet' href="{% static 'variety/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'variety/css/main.css' %}" />
+    <script src="{% static 'variety/js/jquery.js' %}"></script>
+    <script src="{% static 'variety/js/bootstrap.bundle.js' %}"></script>
+    <script src="{% static 'variety/js/main.js' %}"></script>
+</head>
+<body>
+{% include 'spirit/_header.html' %}
+<div class='s-common-top g-wrap js-common-top s-zongyi-top' data-channel="zongyi">
+    <div class="filter-container" data-block="tj-filter" monitor-cid="筛选项" monitor-shortpv-b>
+        <div class="s-filter">
+            <dl class="s-filter-item g-clear">
+                <dt class="type">排序</dt>
+                <dd class="item g-clear js-filter-content">
+                    <a class="ranking" href="javascript:;" data-ranking='rank_hot' >最近热映</a>
+                    <a class="ranking"  href="javascript:;" data-ranking='rank_order'> 热门排行</a>
+                </dd>
+            </dl>
+            <dl class="s-filter-item js-s-filter">
+                <dt class="type">类型</dt>
+                <dd class="item g-clear js-filter-content">
+                    <a class="tag" href="javascript:;" data-tag="全部">全部</a>
+                    {% for item in type %}
+                        <a class="tag" href="javascript:;" data-tag="{{ item.0 }}">
+                            {{ item.1 }}
+                        </a>
+                    {% endfor %}
+                </dd>
+            </dl>
+            <dl class="s-filter-item js-s-filter">
+                <dt class="type">地区</dt>
+                <dd class="item g-clear js-filter-content">
+                    <a class="region" href="javascript:;" data-region="全部">全部</a>
+                    {% for item in region %}
+                        <a class="region" href="javascript:;" data-region="{{ item.0 }}">
+                            {{ item.1 }}
+                        </a>
+                    {% endfor %}
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="js-tab-container" data-block="tj-list" monitor-cid="列表" monitor-shortpv-b>
+        <div class="s-tab">
+            <div class="s-tab-main">
+                <ul class="list g-clear js-list">
+                    {% for variety in page_obj %}
+                    <li class="item">
+                        <a class="js-tongjic" href="{% url 'detail' id=variety.id %}" monitor-shortpv-c="cont_inner_3_255223">
+                            <div class="cover g-playicon">
+                                <img src="/media/{{variety.image}}">
+                                <div class="mask-wrap">
+                                    <span class="hint">
+                                        {% if  variety.video.all.last.release_date %}
+                                            {{variety.video.all.last.release_date}}期
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <p class="title g-clear">
+                                    <span class="s1">{{variety.variety_name}}</span>
+                                </p>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 分页开始 -->
+    {% if page_obj %}
+        {% include 'page.html' with page_obj=page_obj  page_range=page_range %}
+    {% endif %}
+    <!-- 分页结束 -->
+</div>
+<!-- 底部信息 -->
+{% include 'footer.html' %}
+
+<script>
+$(".tag , .region , .ranking").each(function () {
+    $(this).click(function () {
+        class_name = $(this).attr('class');
+    	var data_tag = $(this).data(class_name);
+        matchUrl(class_name,data_tag);
+    });
+});
+
+// 添加选中样式
+$(document).ready(function(){
+    // 清除原来选中的选项
+    $(".on").removeClass("on");
+    // 获取tag值，默认为"all"
+    var tag =  getUrlParam('tag') ? getUrlParam('tag') : '全部';
+    var region = getUrlParam("region") ? getUrlParam("region") : '全部';
+    var ranking = getUrlParam("ranking") ? getUrlParam("ranking") : 'rank_hot';
+    // 为tag添加选中样式
+    console.log(tag)
+    $(".tag , .region , .ranking").each(function(){
+        if($(this).data('tag') == tag){
+            $(this).addClass("on");
+        }
+        if($(this).data('region') == region){
+            $(this).addClass("on");
+        }
+        if($(this).data('ranking') == ranking){
+            $(this).addClass("on");
+        }
+    });
+});
+</script>
+
+</body>
+</html>

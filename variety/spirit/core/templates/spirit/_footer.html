@@ -1,0 +1,55 @@
+<!--{% load spirit_tags %}-->
+<!--{% load_settings 'ST_MATH_JAX' %}-->
+
+<!--{{ config.template_footer|safe }}-->
+
+<!--{% spaceless %}-->
+<!--<footer class="layout__footer">-->
+<!--  <a class="footer__logo" href="https://www.spirit-project.com">Spirit</a>-->
+<!--</footer>-->
+<!--{% endspaceless %}-->
+
+<!--{% if st_settings.ST_MATH_JAX %}-->
+<!--  <script type="text/x-mathjax-config">-->
+<!--    (function () {-->
+<!--      var elms = document.querySelectorAll(".math");-->
+<!--      MathJax.Hub.Config({-->
+<!--        elements: elms,-->
+<!--        skipStartupTypeset: elms.length === 0-->
+<!--      });-->
+<!--    })();-->
+<!--  </script>-->
+<!--  <script type="text/javascript" async-->
+<!--    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">-->
+<!--  </script>-->
+<!--{% endif %}-->
+
+<!--  底部信息开始 -->
+<div class="eb-foot " data-block="tj-foot" monitor-desc="foot" monitor-shortpv>
+  <div class="eb-foot-wrap g-clear">
+    <div class="eb-foot-left">
+      <p><img src="/static/variety/images/logo.png"></p>
+      <p>Copyright © 360安全网址. All Rights Reserved.</p>
+    </div>
+    <div class="eb-foot-right g-clear">
+      <dl>
+        <dt>关于</dt>
+        <dd><a href="https://www.360kan.com/more/aboutus" target="_blank">关于我们</a></dd>
+        <dd><a href="https://www.360kan.com/more/copyright" target="_blank">版权声明</a></dd>
+        <dd><a href="https://www.360kan.com/more/protocol" target="_blank">用户协议</a></dd>
+
+      </dl>
+      <dl>
+        <dt>服务</dt>
+        <dd><a class='js-addfavorite' href='###'>加入收藏</a></dd>
+        <dd><a href="https://www.360kan.com/more/feedback" target="_blank">意见反馈</a></dd>
+
+        <dd><a href="http://weibo.com/360yingshi" target="_blank">官方微博</a></dd>
+        <dd><a href="https://www.360kan.com/more/cooperation" target="_blank">联系方式</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+<!--  底部信息结束 -->
+
+

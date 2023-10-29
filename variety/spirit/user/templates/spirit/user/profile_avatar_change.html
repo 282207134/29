@@ -1,0 +1,40 @@
+{% extends "spirit/_base.html" %}
+{% load spirit_tags i18n %}
+{% load i18n %}
+
+{% block title %}{% trans "Change avatar" %}{% endblock %}
+
+{% block content %}
+  <div class="layout__article">
+    <h1 class="headline">{% trans "Change avatar" %}</h1>
+    <div class="profile__img">
+      {% if request.user.st.avatar %}
+        <img class="profile__img__avatar" src="/media/{{ request.user.st.avatar }}">
+      {% else %}
+        <img class="profile__img__avatar" src="/static/spirit/images/unnamed.jpeg">
+      {% endif %}
+      <form action="." method="post" enctype="multipart/form-data">
+        {% if error_message %}
+<!--        <div class="alert alert-warning">{{ error_message }}</div>-->
+<!--        <div class="alert alert-error">-->
+<!--          <a class="close" data-dismiss="alert">×</a>-->
+<!--          <strong>Error!</strong>{{ error_message }}-->
+<!--        </div>-->
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+            {{ error_message }}
+          </div>
+        </div>
+        {% endif %}
+        {% csrf_token %}
+        <div class="field">
+          <input type="file" class="form-control-file" name="avatar" id="avatar">
+        </div>
+        <div class="field">
+          <input class="button" type="submit" name="post" value="{% trans 'Change avatar' %}" />
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<meta charset='utf-8' />
+<title>360影视-影视搜索</title>
+<meta name="referrer" content="always"/>
+<base target="_blank" />
+<link rel='stylesheet' href="{% static 'variety/css/search.css' %}" />
+<link rel='stylesheet' href="{% static 'variety/css/bootstrap.css' %}" />
+<link rel='stylesheet' href="{% static 'variety/css/style.css' %}" />
+<link rel='stylesheet' href="{% static 'variety/css/detail.css' %}" />
+<script src="{% static 'variety/js/bootstrap.bundle.js' %}"></script>
+</head>
+<body >
+<script>(function(){var a=true;var h=undefined;var g=[];document.getwide=function(){return h};document.onwidechange=function(e,j){g.push(e)};function f(l,e){if(!d(l,e)){var j=l.className,m=(j!="")?" ":"";var k=j+m+e;l.className=k}}function i(l,e){if(d(l,e)){var j=" "+l.className+" ";j=j.replace(/(\s+)/gi," ");var k=j.replace(" "+e+" "," ");k=k.replace(/(^\s+)|(\s+$)/g,"");l.className=k}}function d(m,j){var k=m.className,l=k.split(/\s+/);var e=0;for(e in l){if(l[e]==j){return true}}return false}function c(j){if(h!=j){h=j;for(var e=0;e<g.length;e++){g[e](j)}}}function b(){if(document.body.clientWidth>1239){f(document.body,"g-wide");i(document.body,"g-small");c("wide")}else{i(document.body,"g-wide");f(document.body,"g-small");c("small")}}window.onresize=function(){if(a){a=false;setTimeout(function(){a=true;b()},120)}};b()})();</script><script>var systemserverdata={"domain":{"kan":"\/\/www.360kan.com","v":"\/\/www.360kan.com","videoweb":"","so":"\/\/so.360kan.com","my":"\/\/i.360kan.com","app":"\/\/app.360kan.com","pl":"\/\/pl.360kan.com","play":"\/\/play.xiankan.com","pay":"\/\/pay.xiankan.com","chat":"\/\/chat.xiankan.com","dig":"\/\/dig.360kan.com","wemedia":"\/\/wemedia.360kan.com","httpsmy":"https:\/\/i.360kan.com","xkmy":"http:\/\/my.xiankan.com","my360":"http:\/\/i.360kan.com"}}</script>
+
+{% include 'spirit/_header.html' %}
+<div class="c-top" style="padding-top:100px">
+    <div class="m-filterbar " id="js-m-filterbar" data-block="tj-filterbar" style="padding: 16px;color:green">
+        <div class="filterbar-content-wrap">
+            <span style="font-size:14px">查询结果</span>
+        </div>
+    </div>
+    <div class="p-body g-clear js-logger">
+        {% if not page_obj %}
+        <span style="font-size:20px">
+            您搜索的名字不存在，换一个名字试试！
+        </span>
+        {% else %}
+        {% for variety in page_obj %}
+            <div class="js-longitem index-zongyi  js-zongyi g-clear" data-logger="hidstat=0&cat_id=3&ent_id=218644&pos=2&quality=1" monitor-shortpv-c="cont_inner_3_218644">
+            <div class="m-mainpic">
+                <a href="{% url 'detail' id=variety.id %}" class="g-playicon js-playicon" title="{{variety.variety_name}}" data-logger='ctype=detail'  data-longrecord="218644_3">
+                    <img src="/media/{{ variety.image }}" alt="{{variety.variety_name}}" />
+                    <span class="m-series">{{variety.video.all.values.last.release_date}}期</span>
+                </a>
+            </div>
+            <div class="cont" style="width:80%">
+                <h3 class="title">
+                    <a href="{% url 'detail' id=variety.id %}" >
+                        <b>{{ variety.variety_name }}</b>
+                    </a>
+                    <span class="playtype">
+                        {% for item in type %}
+                            {% if item.0 == variety.type %}
+                                {{item.1}}
+                            {% endif %}
+                        {% endfor %}
+                        · {{variety.year}}</span>
+                    <div class="m-score"></div>
+                </h3>
+                <ul class="index-zongyi-ul g-clear" style="padding:0px">
+                    <li class='area'><b>地&nbsp;&nbsp;区&nbsp;：</b>
+                        {% for item in region %}
+                            {% if item.0 == variety.region %}
+                            <span>{{item.1}}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li class='director'><b>明&nbsp;&nbsp;星&nbsp;：</b>
+                        {{ variety.star }}
+                    </li>
+                </ul>
+                <div class="m-description">
+                    <p><i>简&nbsp;&nbsp;介&nbsp;：</i>
+                        {{ variety.review }}
+                    </p>
+                </div>
+                <div class="index-zongyi-tabview js-zongyi-tabview">
+                    <div class="views js-zongyi-views">
+                        <div class="view-item view-item-zongyi play-button-container g-clear active" id="t_3_YsMkbHNvA2Y6ED_imgo" data-daochu="to=imgo&id=218644&category=3" data-logger="site=imgo">
+                            {% for item in variety.video.all.values %}
+                            <a href="{{item.video_url}}" class="play-button js-play-series" style="width:400px" data-logger="ctype=play&eppos=1" title="{{ item.title }}">
+                                <span class="data" style="width:105px">{{ item.release_date }}期</span>
+                                <span class="name">{{ item.title }}</span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+</body>
+</html>
